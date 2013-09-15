@@ -8,7 +8,8 @@ import java.util.*;
  *
  * @author Mark
  */
-public class MenuDataModelLiterals {
+public class MenuDataModelTest implements MenuDataModelStrategy{
+    @Override
     public List getMenuItems(){
         List menu = new ArrayList();
         menu.add(new MenuItem("Hamburger", 5.99));

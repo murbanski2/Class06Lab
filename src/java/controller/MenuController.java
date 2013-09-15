@@ -6,11 +6,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.*;
 
 /**
  *
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "MenuController", urlPatterns = {"/MenuController"})
 public class MenuController extends HttpServlet {
+    private static final String RESULT_PAGE = "displaymenu.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -34,16 +38,14 @@ public class MenuController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MenuController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MenuController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            MenuDataModelStrategy data = new MenuDataModelTest();
+            List menu = data.getMenuItems();
+            request.setAttribute("menu", menu);
+                    RequestDispatcher view =
+            request.getRequestDispatcher(RESULT_PAGE);
+            view.forward(request, response);
+
+ 
         } finally {            
             out.close();
         }
