@@ -52,28 +52,17 @@ public class OrderController extends HttpServlet {
             OrderModel order = new OrderModel(menu, choices);
             double total = order.getTotal();
             double tax = order.getTax();
-            double tip = 0.0;
+            double tip = order.getTip();
+            
+            request.setAttribute("total", ("" + total));
+            request.setAttribute("tax", ("" + tax));
+            request.setAttribute("tip", ("" + tip));
             
             RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
             view.forward(request, response);
             
-            
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OrderController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OrderController at " + request.getContextPath() + "</h1>");
-            
-            for(String i:choices){
-                out.println("<p>" + i + "</p>");
-            }
-            
-            out.println("</body>");
-            out.println("</html>");
+
         } finally {            
             out.close();
         }
