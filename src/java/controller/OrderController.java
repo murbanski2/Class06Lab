@@ -6,11 +6,17 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.MenuDataModelStrategy;
+import model.MenuDataModelTest;
+import model.OrderModel;
 
 /**
  *
@@ -18,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
+    private static final String RESULT_PAGE = "displayTotals.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -31,9 +38,27 @@ public class OrderController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            String[] choices = request.getParameterValues("item"); 
+            MenuDataModelStrategy data = new MenuDataModelTest();
+            
+            List menu = data.getMenuItems();
+            request.setAttribute("menu", menu);
+            
+            OrderModel order = new OrderModel(menu, choices);
+            double total = order.getTotal();
+            double tax = order.getTax();
+            double tip = 0.0;
+            
+            RequestDispatcher view =
+                request.getRequestDispatcher(RESULT_PAGE);
+            view.forward(request, response);
+            
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -42,6 +67,11 @@ public class OrderController extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet OrderController at " + request.getContextPath() + "</h1>");
+            
+            for(String i:choices){
+                out.println("<p>" + i + "</p>");
+            }
+            
             out.println("</body>");
             out.println("</html>");
         } finally {            

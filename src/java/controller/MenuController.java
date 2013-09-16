@@ -41,8 +41,8 @@ public class MenuController extends HttpServlet {
             MenuDataModelStrategy data = new MenuDataModelTest();
             List menu = data.getMenuItems();
             request.setAttribute("menu", menu);
-                    RequestDispatcher view =
-            request.getRequestDispatcher(RESULT_PAGE);
+            RequestDispatcher view =
+                request.getRequestDispatcher(RESULT_PAGE);
             view.forward(request, response);
 
  
