@@ -24,7 +24,7 @@ import model.OrderModel;
  */
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
-    private static final String RESULT_PAGE = "displayTotals.jsp";
+    private static final String RESULT_PAGE = "/displayTotals.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -41,8 +41,8 @@ public class OrderController extends HttpServlet {
         
         
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        //PrintWriter out = response.getWriter();
+        //try {
             String[] choices = request.getParameterValues("item"); 
             MenuDataModelStrategy data = new MenuDataModelTest();
             
@@ -63,9 +63,9 @@ public class OrderController extends HttpServlet {
             view.forward(request, response);
             
 
-        } finally {            
-            out.close();
-        }
+        //} finally {            
+        //    out.close();
+        //}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

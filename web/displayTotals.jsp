@@ -18,9 +18,9 @@
         <%
             String[] choices = request.getParameterValues("item");
             List menu = (List)request.getAttribute("menu");
-            String total = request.getParameter("total");
-            String tax = request.getParameter("tax");
-            String tip = request.getParameter("tip");
+            String total = request.getAttribute("total").toString();
+            String tax = request.getAttribute("tax").toString();
+            String tip = request.getAttribute("tip").toString();
             double grandTotal = Double.parseDouble(total) 
                     + Double.parseDouble(tax);
         %>
